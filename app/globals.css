@@ -213,6 +213,7 @@ button, input { font: inherit; }
   display: grid;
   grid-template-rows: 64px minmax(0, 1fr);
   min-width: 0;
+  min-height: 0;
   background: #e8e2d8;
 }
 .score-toolbar {
