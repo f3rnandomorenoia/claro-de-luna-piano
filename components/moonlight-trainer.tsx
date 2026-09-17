@@ -215,14 +215,47 @@ export function MoonlightTrainer() {
     let nextMeasure = selection.measureIndex;
     let nextPosition = selection.positionIndex + direction;
     if (nextPosition < 0) {
-      nextMeasure = Math.max(0, nextMeasure - 1);
-      nextPosition = Math.max(0, (measures[nextMeasure]?.positions.length ?? 1) - 1);
+      if (nextMeasure === 0) return;
+      nextMeasure -= 1;
+      nextPosition = (measures[nextMeasure]?.positions.length ?? 1) - 1;
     } else if (nextPosition >= (measures[nextMeasure]?.positions.length ?? 0)) {
-      nextMeasure = Math.min(measures.length - 1, nextMeasure + 1);
+      if (nextMeasure === measures.length - 1) return;
+      nextMeasure += 1;
       nextPosition = 0;
     }
     chooseSelection(nextMeasure, nextPosition);
   }, [chooseSelection, measures, selection]);
+
+  useEffect(() => {
+    if (status !== 'ready') return;
+
+    function handleArrowKeys(event: KeyboardEvent) {
+      if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      if (event.target instanceof HTMLElement && event.target.isContentEditable) return;
+
+      switch (event.key) {
+        case 'ArrowLeft':
+          event.preventDefault();
+          move(-1);
+          break;
+        case 'ArrowRight':
+          event.preventDefault();
+          move(1);
+          break;
+        case 'ArrowUp':
+          event.preventDefault();
+          chooseSelection(selection.measureIndex - 1, 0);
+          break;
+        case 'ArrowDown':
+          event.preventDefault();
+          chooseSelection(selection.measureIndex + 1, 0);
+          break;
+      }
+    }
+
+    window.addEventListener('keydown', handleArrowKeys);
+    return () => window.removeEventListener('keydown', handleArrowKeys);
+  }, [chooseSelection, move, selection.measureIndex, status]);
 
   useEffect(() => {
     let cancelled = false;
@@ -366,11 +399,7 @@ export function MoonlightTrainer() {
               type="button"
               className="score-canvas-wrap"
               onClick={handleScoreClick}
-              onKeyDown={(event) => {
-                if (event.key === 'ArrowLeft') move(-1);
-                if (event.key === 'ArrowRight') move(1);
-              }}
-              aria-label="Partitura interactiva. Pulsa una zona o usa las flechas izquierda y derecha para cambiar de posición."
+              aria-label="Partitura interactiva. Pulsa una zona; derecha e izquierda avanzan y retroceden posiciones, abajo y arriba avanzan y retroceden compases."
             >
               <div ref={scoreRef} className="score-canvas" aria-label="Partitura interactiva de Claro de luna" />
               {marker && status === 'ready' && (
@@ -394,7 +423,7 @@ export function MoonlightTrainer() {
           {helpOpen && (
             <div className="help-card">
               <strong>Cómo usarlo</strong>
-              <ol><li>Toca cualquier punto de la partitura.</li><li>Mira las teclas encendidas abajo.</li><li>Avanza posición a posición con los botones.</li></ol>
+              <ol><li>Toca cualquier punto de la partitura.</li><li>Mira las teclas encendidas abajo.</li><li>Avanza posición a posición con los botones.</li><li>→ siguiente posición; ← anterior. ↓ siguiente compás; ↑ anterior.</li></ol>
               <p>Los colores identifican Do, Re, Mi… y se repiten en cada octava.</p>
             </div>
           )}
