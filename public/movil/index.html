@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f7f4ed">
+  <meta name="description" content="Claro de luna, compás a compás. Partitura original y teclados de colores paso a paso para practicar desde el móvil.">
+  <title>Claro de luna · Compás a compás</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <header class="intro">
+    <a href="../" class="back-link">← Piano interactivo</a>
+    <p class="eyebrow">BEETHOVEN · PRIMER MOVIMIENTO</p>
+    <h1>Claro de luna</h1>
+    <p class="subtitle">Un compás. Un paso. A tu ritmo.</p>
+    <p class="instructions">Mira la partitura y baja para seguir cada pulsación. Después encontrarás el siguiente compás.</p>
+    <details class="downloads"><summary>PDF para imprimir y partitura original</summary><div>
+      <a href="./pdf/solo-pulsaciones.pdf">PDF · Solo pulsaciones</a>
+      <a href="./pdf/con-mantenidas.pdf">PDF · Con notas mantenidas</a>
+      <a href="https://www.mutopiaproject.org/ftp/BeethovenLv/O27/moonlight/moonlight-a4.pdf">Partitura original completa</a>
+      <small>Los PDF tienen 35 páginas A4. La web se lee seguida.</small>
+    </div></details>
+  </header>
+  <nav class="controls" aria-label="Opciones de práctica">
+    <div class="control-row">
+      <label class="jump-label" for="measure-picker">Compás <select id="measure-picker" disabled aria-label="Ir al compás"><option>1 / 69</option></select></label>
+      <button id="legend-button" aria-expanded="false" aria-controls="color-legend">Colores <span aria-hidden="true">●</span></button>
+    </div>
+    <div class="mode-switch" role="group" aria-label="Notas que se muestran">
+      <button id="only-press" aria-pressed="true">Solo pulsaciones</button>
+      <button id="with-held" aria-pressed="false">Con mantenidas</button>
+    </div>
+    <div id="color-legend" hidden></div>
+  </nav>
+  <p id="mode-description" class="mode-description">Color y punto: pulsa ahora. Se muestran solo las nuevas pulsaciones.</p>
+  <main id="measures" aria-label="Compases y teclados"><p class="loading" role="status">Preparando la partitura…</p></main>
+  <footer class="credits">
+    <p>Partitura: Stewart Holmes / Mutopia (2007), edición de A. Winterberger. Se conservan los dos pentagramas originales.</p>
+    <p>Teclados contrastados con el MIDI de esta edición. Sigue el ritmo, las duraciones y el pedal en la partitura.</p>
+    <p><a href="https://www.mutopiaproject.org/ftp/BeethovenLv/O27/moonlight/">Fuente original</a> · <a href="https://creativecommons.org/licenses/by-sa/2.5/">CC BY-SA 2.5</a> · Adaptación: recortes y guía de práctica.</p>
+  </footer>
+  <noscript>Activa JavaScript para ver los teclados. Puedes descargar los PDF desde el enlace superior.</noscript>
+</body>
+</html>

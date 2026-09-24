@@ -350,6 +350,9 @@ export function MoonlightTrainer() {
           <h1>Claro de luna <span>del pentagrama al piano</span></h1>
         </div>
         <div className="header-actions">
+          {/* Static document in public/, outside the Next router. */}
+          {/* oxlint-disable-next-line next/no-html-link-for-pages */}
+          <a href="./movil/" className="mobile-guide-link">Guía para móvil ↗</a>
           <span className={`status-dot ${status}`} />
           <span className="status-label">
             {status === 'ready' ? 'Partitura preparada' : status === 'error' ? 'Error de carga' : 'Preparando partitura'}

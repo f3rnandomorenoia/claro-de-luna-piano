@@ -514,3 +514,5 @@ button, input { font: inherit; }
   .white-key { height: 125px; }
   .black-key { height: 77px; }
 }
+
+.mobile-guide-link { color: #245b47; font-size: 13px; font-weight: 650; text-decoration: underline; text-underline-offset: 3px; padding: 10px 6px; white-space: nowrap; }
